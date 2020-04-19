@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#EA4183</color>
+    <color name="crct_answer">#388E3C</color>
+    <color name="wrong_answer">#D32F2F</color>
+    <color name="trans_rbutton">#FFFFFF</color>
+</resources>
