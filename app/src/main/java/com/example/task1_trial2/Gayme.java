@@ -650,18 +650,11 @@ public class Gayme extends AppCompatActivity {
     }
 
     public void question_is_six(){
-        ArrayList<RadioButton> dummy_answers_rbuttons_six = new ArrayList<>();
-        {
-            dummy_answers_rbuttons_six.add((RadioButton) findViewById(R.id.rb1));
-            dummy_answers_rbuttons_six.add((RadioButton) findViewById(R.id.rb2));
-            dummy_answers_rbuttons_six.add((RadioButton) findViewById(R.id.rb3));
+    ArrayList<Integer> options_for_six = new ArrayList<Integer>();{
+            options_for_six.add(4);
+            options_for_six.add(5);
         }
 
-        ArrayList<Integer> dummy_ans_six = new ArrayList<Integer>();
-        {
-            dummy_ans_six.add(4);
-            dummy_ans_six.add(5);
-        }
         tvFramedQuestion.setText("The factor of "+question+" is :");
         factors_of_qn.clear();
         dummy_answers.clear();
@@ -671,29 +664,20 @@ public class Gayme extends AppCompatActivity {
         disable_et_bu();
         find_factors(question);
         start_timer();
+        
+        Random r_crct_factor = new Random();
+        int r_crct_factor_ind = r_crct_factor.nextInt(factors_of_qn.size());
+        int crct_factor_six = factors_of_qn.get(r_crct_factor_ind);
+        options_for_six.add(crct_factor_six);
+        Collections.shuffle(options_for_six);
 
+        int crct_factor_six_pos = options_for_six.indexOf(crct_factor_six);
 
-        while(dummy_ans_six.size()>0){
-
-            Random r_dummy_button_six = new Random();
-            int r_dummy_rbutton_six_ind = r_dummy_button_six.nextInt(dummy_answers_rbuttons_six.size());
-            RadioButton r_dummy_rbutton_six = (RadioButton) findViewById(rb_options[r_dummy_rbutton_six_ind]);
-            Log.d("dummy six rbutton size", ": " + dummy_answers_rbuttons_six.size());
-            Random r_dummy_ans_six = new Random();
-            int r_dummy_ans_six_ind = r_dummy_ans_six.nextInt(dummy_ans_six.size());
-            int r_six_dummy_ans = dummy_ans_six.get(r_dummy_ans_six_ind);
-            r_dummy_rbutton_six.setText(""+dummy_ans_six.get(r_dummy_ans_six_ind));
-            Log.d("dummy six rbutton size", ": " + dummy_ans_six.size());
-            dummy_ans_six.remove(r_dummy_ans_six_ind);
-            dummy_answers_rbuttons_six.remove(r_dummy_rbutton_six);
+        for(int i = 0; i < 3; i++){
+            ((RadioButton) rgOptions.getChildAt(i)).setText(""+options_for_six.get(i));
         }
 
-        Random r_six_crct = new Random();
-        int r_six_crct_ind = r_six_crct.nextInt(factors_of_qn.size());
-        int crct_ans_six = factors_of_qn.get(r_six_crct_ind);
-        crct_rbutton = dummy_answers_rbuttons_six.get(0);
-        crct_rbutton.setText(""+ crct_ans_six);
-
+        crct_rbutton = (RadioButton) rgOptions.getChildAt(crct_factor_six_pos);
 
         rgOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -711,6 +695,7 @@ public class Gayme extends AppCompatActivity {
             }
         });
     }
+        
 
     public void check_if_high_score(){
         Log.d("HIGH", "high_score = "+high_score);
